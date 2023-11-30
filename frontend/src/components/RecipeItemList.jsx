@@ -40,8 +40,8 @@ export const RecipeItemList = observer(() => {
           showFavorites ? recipe.isFavorite : true
         )
         .filter((recipe) =>
-          recipe.name.includes(searchValue) // case sensitive
-          // recipe.name.toLowerCase().includes(searchValue.toLowerCase())
+          // recipe.name.includes(searchValue) // case sensitive
+          recipe.name.toLowerCase().includes(searchValue.toLowerCase())
         )
         .map((recipe) => (
           <RecipeItem key={recipe.id} recipeItem={recipe} />

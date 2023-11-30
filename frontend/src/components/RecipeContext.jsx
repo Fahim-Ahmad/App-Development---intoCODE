@@ -9,7 +9,6 @@ export const useRecipeContext = () => {
   return useContext(RecipeContext);
 };
 
-// using as a controller here
 export const RecipeProvider = ({ children }) => {
   const [initialRecipes, setInitialRecipes] = useState([]);
 

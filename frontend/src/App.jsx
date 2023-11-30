@@ -20,7 +20,7 @@ function App() {
 
     <BrowserRouter>
       <Routes>
-        <Route path = "/new" element={<RecipeProvider><NewRecipeForm /></RecipeProvider>}/>
+        <Route path = "/recipes/new" element={<RecipeProvider><NewRecipeForm /></RecipeProvider>}/>
         <Route path="*" element={<RecipeProvider><RecipeItemList /></RecipeProvider>} />
         <Route path="/recipes/:id" element={<RecipeProvider><RecipeDetails /></RecipeProvider>} />
       </Routes>

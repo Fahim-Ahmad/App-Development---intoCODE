@@ -25,7 +25,7 @@ export const RecipeItemList = observer(() => {
         onChange={handleInputChange}
         placeholder="Search by recipe name..."
       />
-      <Link to="/new">
+      <Link to="/recipes/new">
         <button>New Recipe +</button>
       </Link>
       <p>Number of Recipes: {recipeCtx.recipes.length}</p>

@@ -3,7 +3,6 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import "./App.css";
 import recipeLogo from './assets/logo.svg'
 import { RecipeItemList } from "./components/RecipeItemList";
-import { RecipeProvider } from "./components/RecipeContext";
 import {NewRecipeForm} from "./components/NewRecipeForm";
 import {RecipeDetails} from "./components/RecipeDetails";
 
@@ -20,9 +19,9 @@ function App() {
 
     <BrowserRouter>
       <Routes>
-        <Route path = "/recipes/new" element={<RecipeProvider><NewRecipeForm /></RecipeProvider>}/>
-        <Route path="*" element={<RecipeProvider><RecipeItemList /></RecipeProvider>} />
-        <Route path="/recipes/:id" element={<RecipeProvider><RecipeDetails /></RecipeProvider>} />
+        <Route path = "/recipes/new" element={<NewRecipeForm />}/>
+        <Route path="*" element={<RecipeItemList />} />
+        <Route path="/recipes/:id" element={<RecipeDetails />} />
       </Routes>
     </BrowserRouter>
     </>

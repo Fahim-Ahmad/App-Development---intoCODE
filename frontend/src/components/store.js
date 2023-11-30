@@ -6,7 +6,7 @@ export class RecipeStore {
   constructor(initialItems = []) {
     makeObservable(this, {
       items: observable,
-    //   addItem: action,
+      addItem: action,
       removeItem: action,
       updateItem: action,
     });

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { useRecipeContext } from "./RecipeContext";
 import { RecipeItem } from "./RecipeItem";
@@ -17,6 +17,10 @@ export const RecipeItemList = observer(() => {
     setSearchValue(e.target.value);
   };
 
+  const filteredRecipes = recipeCtx.recipes
+  .filter((recipe) => (showFavorites ? recipe.isFavorite : true))
+  .filter((recipe) => recipe.name.toLowerCase().includes(searchValue));
+
   return (
     <>
       <input
@@ -28,22 +32,14 @@ export const RecipeItemList = observer(() => {
       <Link to="/recipes/new">
         <button>New Recipe +</button>
       </Link>
-      <p>Number of Recipes: {recipeCtx.recipes.length}</p>
+      <p>Number of Recipes: {filteredRecipes.length}</p>
       <input
         type = "checkbox"
         checked = {showFavorites}
         onChange = {handleCheckboxChange}
       />
       <span>Only show favorites</span>
-      {recipeCtx.recipes
-        .filter((recipe) =>
-          showFavorites ? recipe.isFavorite : true
-        )
-        .filter((recipe) =>
-          // recipe.name.includes(searchValue) // case sensitive
-          recipe.name.toLowerCase().includes(searchValue.toLowerCase())
-        )
-        .map((recipe) => (
+      {filteredRecipes.map((recipe) => (
           <RecipeItem key={recipe.id} recipeItem={recipe} />
       ))}
     </>

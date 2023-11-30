@@ -29,7 +29,13 @@ export class RecipeApi {
     const response = await fetch(`${this.url}/recipes/${recipeItem.id}`, {
       method: "DELETE",
     });
-    return response.json();
+
+    if (response.status === 204) {
+      return { message: "Recipe deleted" };
+    } else {
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.error || "Failed to delete recipe");
+    }
   }
 
   async createRecipe(recipeItem) {

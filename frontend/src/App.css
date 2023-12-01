@@ -6,10 +6,10 @@
 }
 
 .logo {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
+  display: inline;
+  margin-left: 40%;
+  margin-right: 40%;
+  width: 20%;
   height: 10em;
   padding: 1.5em;
   will-change: filter;

@@ -39,7 +39,7 @@ export const RecipeDetails = () => {
 
           <h2>Instructions</h2>
           <p>{recipe.instructions}</p>
-          <p>{recipe.totalCookingTimeMinutes} Minues</p>
+          <p>{recipe.totalCookingTimeMinutes} Minutes</p>
           <p>{recipe.calories100g} Kcal/100g</p>
           <br></br>
           <Link to="/">

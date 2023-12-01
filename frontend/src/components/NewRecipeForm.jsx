@@ -33,6 +33,21 @@ export const NewRecipeForm = observer(() => {
   };
 
   const handleSubmit = (e) => {
+    if (!recipeData.name.trim()) {
+      alert("Please enter a name for the recipe.");
+      return;
+    }
+
+    if (!recipeData.instructions.trim()) {
+      alert("Please enter an instruction for the recipe.");
+      return;
+    }
+
+    if (recipeData.totalCookingTimeMinutes == 0) {
+      alert("Total ccooking time can't be 0");
+      return;
+    }
+
     addRecipeItem(recipeData);
     console.log(recipeData);
   };

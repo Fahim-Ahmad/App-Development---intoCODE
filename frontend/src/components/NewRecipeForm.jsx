@@ -2,6 +2,8 @@ import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import { useRecipeContext } from "./RecipeContext";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCancel, faPlusCircle, faSave } from '@fortawesome/free-solid-svg-icons';
 
 export const NewRecipeForm = observer(() => {
   const {addRecipeItem} = useRecipeContext();
@@ -54,93 +56,126 @@ export const NewRecipeForm = observer(() => {
 
   return (
     <>
-    <form>
-      <label>
-        Name:
-        <input
-          type="text"
-          name="name"
-          value={recipeData.name}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <label>
-        Instructions:
-        <textarea
-          name="instructions"
-          value={recipeData.instructions}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <label>
-        Total Cooking Time (minutes):
-        <input
-          type="number"
-          name="totalCookingTimeMinutes"
-          value={recipeData.totalCookingTimeMinutes}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <label>
-        Calories per 100g:
-        <input
-          type="number"
-          name="calories100g"
-          value={recipeData.calories100g}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <h3>Ingredients:</h3>
-      {recipeData.ingredients.map((ingredient, index) => (
-        <div key={index}>
-          <label>
-            Ingredient Name:
-            <input
-              type="text"
-              name={`ingredient-name-${index}`}
-              value={ingredient.name}
-              onChange={(e) => handleChange(e, index)}
-            />
-          </label>
-          <label>
-            Quantity:
+    <div className="container mt-4">
+      <h2 className="display-6">Create Recipe</h2>
+
+      <form>
+        <div className="mb-3">
+          <label className="form-label">Name:</label>
+          <input
+            placeholder="Name of the Recipe"
+            type="text"
+            className="form-control"
+            name="name"
+            value={recipeData.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Instructions:</label>
+          <textarea
+            placeholder="Please write down the instructions"
+            name="instructions"
+            className="form-control"
+            value={recipeData.instructions}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="d-flex justify-content-between row">
+          <div className="col-md-6">
+            <label className="form-label">Total Cooking Time (minutes):</label>
             <input
               type="number"
-              name={`ingredient-quantity-${index}`}
-              value={ingredient.quantity}
-              onChange={(e) => handleChange(e, index)}
+              className="form-control"
+              name="totalCookingTimeMinutes"
+              value={recipeData.totalCookingTimeMinutes}
+              onChange={handleChange}
             />
-          </label>
-          <label>
-            Unit:
+          </div>
+
+          <div className="col-md-6">
+            <label className="form-label">Calories per 100g:</label>
             <input
-              type="text"
-              name={`ingredient-unit-${index}`}
-              value={ingredient.unit}
-              onChange={(e) => handleChange(e, index)}
+              type="number"
+              className="form-control"
+              name="calories100g"
+              value={recipeData.calories100g}
+              onChange={handleChange}
             />
-          </label>
-          <br></br>
-          {index === recipeData.ingredients.length - 1 && (
-            <button type="button" onClick={handleAddIngredient}>
-              +
-            </button>
-          )}
-          <br />
+          </div>
         </div>
-      ))}
-      <br />
-    </form>
-    <Link to="/">
-      <button onClick={handleSubmit}>Submit +</button>
-    </Link>
-    <Link to="/">
-      <button>Cancel</button>
-    </Link>
+
+        <h3 className="display-6">Ingredients:</h3>
+        {recipeData.ingredients.map((ingredient, index) => (
+          <div key={index} className="mb-3 row align-items-end">
+            <div className="col">
+              <label className="form-label">Ingredient Name:</label>
+              <input
+                required
+                placeholder="Ingredient"
+                type="text"
+                name={`ingredient-name-${index}`}
+                value={ingredient.name}
+                onChange={(e) => handleChange(e, index)}
+                className="form-control"
+              />
+            </div>
+
+            <div className="col">
+              <label className="form-label">Quantity:</label>
+              <input
+                type="number"
+                name={`ingredient-quantity-${index}`}
+                value={ingredient.quantity}
+                onChange={(e) => handleChange(e, index)}
+                className="form-control"
+              />
+            </div>
+
+            <div className="col">
+              <label className="form-label">Unit:</label>
+              <input
+                type="text"
+                name={`ingredient-unit-${index}`}
+                value={ingredient.unit}
+                onChange={(e) => handleChange(e, index)}
+                className="form-control"
+              />
+            </div>
+
+            {index === recipeData.ingredients.length - 1 && (
+              <div className="col">
+                <button type="button" onClick={handleAddIngredient} className="btn btn-primary">
+                  <FontAwesomeIcon icon={faPlusCircle} />
+                </button>
+              </div>
+            )}
+          </div>
+        ))}
+
+        <div className="gap-6">
+          <div className="row justify-content-between gap-2">
+            <div className="col-auto">
+              <Link to="/">
+                <button onClick={handleSubmit} type="button" className="btn btn-primary">
+                  <FontAwesomeIcon icon={faSave} /> Save
+                </button>
+              </Link>
+            </div>
+            <div className="col-auto">
+              <Link to="/">
+                <button type="button" className="btn btn-secondary">
+                  <FontAwesomeIcon icon={faCancel} /> Cancel
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
     </>
   );
 })

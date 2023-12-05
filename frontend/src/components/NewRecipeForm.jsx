@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import { useRecipeContext } from "./RecipeContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCancel, faPlusCircle, faSave } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom'; // tried to use 'useHistory' hook, but it seems it is replaces with 'useNavigate'. https://stackoverflow.com/questions/62861269/attempted-import-error-usehistory-is-not-exported-from-react-router-dom
 
 export const NewRecipeForm = observer(() => {
   const {addRecipeItem} = useRecipeContext();
+  const navigate = useNavigate();
 
   const [recipeData, setRecipeData] = useState({
     name: "",
@@ -34,7 +36,7 @@ export const NewRecipeForm = observer(() => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     if (!recipeData.name.trim()) {
       alert("Please enter a name for the recipe.");
       return;
@@ -49,9 +51,17 @@ export const NewRecipeForm = observer(() => {
       alert("Total ccooking time can't be 0");
       return;
     }
+ 
+    // addRecipeItem(recipeData);
+    // console.log(recipeData);
+    try {
+      const newRecipeId = await addRecipeItem(recipeData);
+      // console.log(newRecipeId)
+      navigate(`/recipes/${newRecipeId}`);      
+    } catch (error) {
+      console.error('Error adding recipe:', error);
+    }
 
-    addRecipeItem(recipeData);
-    console.log(recipeData);
   };
 
   return (
@@ -159,11 +169,11 @@ export const NewRecipeForm = observer(() => {
         <div className="gap-6">
           <div className="row justify-content-between gap-2">
             <div className="col-auto">
-              <Link to="/">
+              {/* <Link to={newRecipeId}> */}
                 <button onClick={handleSubmit} type="button" className="btn btn-primary">
                   <FontAwesomeIcon icon={faSave} /> Save
                 </button>
-              </Link>
+              {/* </Link> */}
             </div>
             <div className="col-auto">
               <Link to="/">

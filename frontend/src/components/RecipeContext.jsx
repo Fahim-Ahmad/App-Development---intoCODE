@@ -30,7 +30,8 @@ export const RecipeProvider = ({ children }) => {
   const addRecipeItem = async (recipeItem) => {
     const newTask = await apiContext.api.createRecipe(recipeItem);
     store.addItem(newTask);
-    console.log(store)
+    // console.log(store)
+    return newTask.id;
   };
 
   const updateRecipeItem = async (recipeItem) => {
